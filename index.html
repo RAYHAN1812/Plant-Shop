@@ -8,11 +8,33 @@
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <nav>
-        
-    </nav>
-    
+  <nav class="bg-[#15803D]">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between w-full px-6 py-4 space-y-4 md:space-y-0">
+      
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <img src="./assets/about.png" alt="Logo" class="h-8 w-8">
+        <h1 class="text-white text-xl font-bold">Green Earth</h1>
+      </div>
+
+      <!-- Menu Links -->
+      <div class="flex flex-col md:flex-row md:space-x-6 text-white text-lg space-y-2 md:space-y-0">
+        <h2 class="cursor-pointer hover:text-yellow-400">About</h2>
+        <h2 class="cursor-pointer hover:text-yellow-400">Gallery</h2>
+        <h2 class="cursor-pointer hover:text-yellow-400">Plant a Tree</h2>
+      </div>
+
+      <!-- Button -->
+      <div>
+        <button class="btn btn-warning cursor-pointer hover:text-yellow-100 rounded-2xl text-green-900">Plant a Tree</button>
+      </div>
+
+    </div>
+  </nav>
 </body>
+
+
+
 <script src="./script.js"></script>
 </script>
 </html>
