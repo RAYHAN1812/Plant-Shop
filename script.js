@@ -2,10 +2,19 @@ const categoriesEl = document.getElementById("all-categories");
 const plantsEl = document.getElementById("all-plants");
 const cartEl = document.getElementById("cart-items");
 const totalEl = document.getElementById("total-price");
-
 let cart = [];
 let total = 0;
+let allPlants = [];
 
+// Load all plants
+fetch("https://openapi.programming-hero.com/api/plants")
+  .then(res => res.json())
+  .then(data => {
+    allPlants = data.plants;
+    renderPlants(allPlants);
+  });
+
+// Load categories
 fetch("https://openapi.programming-hero.com/api/categories")
   .then(res => res.json())
   .then(data => {
@@ -18,36 +27,61 @@ fetch("https://openapi.programming-hero.com/api/categories")
     });
   });
 
+// Click category
 categoriesEl.addEventListener("click", e => {
   if (e.target.tagName === "LI") {
     document.querySelectorAll("#all-categories li").forEach(li => li.classList.remove("bg-green-800","text-white"));
     e.target.classList.add("bg-green-800","text-white");
-    
+    plantsEl.innerHTML = `<span class="loading loading-spinner loading-xl"></span>`;
     fetch(`https://openapi.programming-hero.com/api/category/${e.target.id}`)
       .then(res => res.json())
-      .then(data => {
-        plantsEl.innerHTML = "";
-        data.plants.forEach(plant => {
-          plantsEl.innerHTML += `
-            <div class="p-4 border rounded bg-white">
-              <img src="${plant.image}" class="w-32 h-32 object-cover mb-2"/>
-              <h1 class="font-bold">${plant.name}</h1>
-              <p class="text-gray-800">${plant.description}</p>
-              <p class="text-green-900 font-semibold">Price: ${plant.price}৳</p>
-              <button class="add-btn bg-green-700 rounded-xl" data-id="${plant.id}" data-name="${plant.name}" data-price="${plant.price}">Add to Cart</button>
-            </div>
-          `;
-        });
-        document.querySelectorAll(".add-btn").forEach(btn => {
-          btn.addEventListener("click", () => {
-            cart.push({id: btn.dataset.id, name: btn.dataset.name, price: parseInt(btn.dataset.price)});
-            total += parseInt(btn.dataset.price);
-            renderCart();
-          });
-        });
-      });
+      .then(data => renderPlants(data.plants));
   }
 });
+
+function renderPlants(plants) {
+  plantsEl.innerHTML = "";
+  plants.forEach(plant => {
+    plantsEl.innerHTML += `
+      <div class="p-4 border rounded bg-white plant-card" 
+           data-id="${plant.id}" 
+           data-name="${plant.name}" 
+           data-price="${plant.price}" 
+           data-description="${plant.description}" 
+           data-image="${plant.image}">
+        <img src="${plant.image}" class="w-32 h-32 object-cover mb-2"/>
+        <h1 class="font-bold">${plant.name}</h1>
+        <p class="text-green-900 font-semibold">Price: ${plant.price}৳</p>
+        <button class="add-btn bg-green-700 rounded-xl mt-2 px-2 py-1"
+          data-id="${plant.id}" data-name="${plant.name}" data-price="${plant.price}">Add to Cart</button>
+      </div>
+    `;
+  });
+
+  document.querySelectorAll(".plant-card").forEach(card => {
+    card.addEventListener("click", () => {
+      document.getElementById("modal-name").textContent = card.dataset.name;
+      document.getElementById("modal-description").textContent = card.dataset.description;
+      document.getElementById("modal-price").textContent = `Price: ${card.dataset.price}৳`;
+      document.getElementById("modal-image").src = card.dataset.image;
+      document.getElementById("plant_modal").checked = true;
+    });
+  });
+
+  document.querySelectorAll(".add-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const item = {
+        id: btn.dataset.id,
+        name: btn.dataset.name,
+        price: parseInt(btn.dataset.price)
+      };
+      cart.push(item);
+      total += item.price;
+      renderCart();
+    });
+  });
+}
 
 function renderCart() {
   cartEl.innerHTML = "";
@@ -62,8 +96,9 @@ function renderCart() {
   totalEl.textContent = total;
   document.querySelectorAll(".remove-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      total -= cart[btn.dataset.index].price;
-      cart.splice(btn.dataset.index,1);
+      const idx = parseInt(btn.dataset.index);
+      total -= cart[idx].price;
+      cart.splice(idx,1);
       renderCart();
     });
   });
