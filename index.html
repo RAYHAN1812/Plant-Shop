@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Earth</title>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-  <nav class="bg-[#15803D]">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between w-full px-6 py-4 space-y-4 md:space-y-0">
-      
-      <div class="flex items-center space-x-2">
-        <img src="./assets/about.png" alt="Logo" class="h-8 w-8">
-        <h1 class="text-white text-xl font-bold">Green Earth</h1>
-      </div>
+<body class="bg-green-50">
 
-      <div class="flex flex-col md:flex-row md:space-x-6 text-white text-lg space-y-2 md:space-y-0">
-        <h2 class="cursor-pointer hover:text-yellow-400">About</h2>
-        <h2 class="cursor-pointer hover:text-yellow-400">Gallery</h2>
-        <h2 class="cursor-pointer hover:text-yellow-400">Plant a Tree</h2>
-      </div>
-
-      <div>
-        <button class="btn btn-warning cursor-pointer hover:text-yellow-100 rounded-2xl text-green-900">Plant a Tree</button>
-      </div>
-
+<nav class="bg-[#15803D]">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between w-full px-6 py-4 space-y-4 md:space-y-0">
+    <div class="flex items-center space-x-2">
+      <img src="./assets/about.png" alt="Logo" class="h-8 w-8" />
+      <h1 class="text-white text-xl font-bold">Green Earth</h1>
     </div>
-  </nav>
-<div class="flex flex-col md:flex-row items-center md:justify-between w-full h-[383px] px-6 py-8 bg-green-100 gap-6">
+    <div class="flex flex-col md:flex-row md:space-x-6 text-white text-lg space-y-2 md:space-y-0">
+      <h2 class="cursor-pointer hover:text-yellow-400">About</h2>
+      <h2 class="cursor-pointer hover:text-yellow-400">Gallery</h2>
+      <h2 class="cursor-pointer hover:text-yellow-400">Plant a Tree</h2>
+    </div>
+    <div>
+      <button class="btn btn-warning cursor-pointer hover:text-yellow-100 rounded-2xl text-green-900">
+        Plant a Tree
+      </button>
+    </div>
+  </div>
+</nav>
 
-  <img src="./assets/hero-leaf1.png" alt="Leaf Left">
-
-  <div class="text-center md:text-left space-y-4 max-w-full md:max-w-lg">
-    <h1 class="text-black font-bold text-5xl leading-tight">
+<div class="flex flex-col md:flex-row items-center md:justify-between w-full min-h-[383px] px-6 py-8 gap-6 bg-green-100">
+  <img src="./assets/hero-leaf1.png" alt="Leaf Left" class="w-24 md:w-40 lg:w-52 object-contain" />
+  <div class="text-center md:text-left space-y-4 max-w-full md:max-w-lg px-2">
+    <h1 class="text-black font-bold text-2xl md:text-3xl lg:text-4xl leading-snug">
       Plant a Tree, Grow a Future
     </h1>
-
-    <h3 class="text-gray-600 text-base md:text-lg">
+    <h3 class="text-gray-600 text-base md:text-lg lg:text-xl">
       Join our mission to plant 1 million trees and make the Earth greener for future generations.
     </h3>
-    <button class="btn btn-warning cursor-pointer py-2 px-6 rounded-2xl text-green-700 hover:text-yellow-100">
-     Get Involved
+    <button class="btn btn-warning py-2 px-6 rounded-2xl text-green-700 hover:text-yellow-100 transition duration-300">
+      Get Involved
     </button>
   </div>
-
-  <img src="./assets/hero-leaf2.png" >
-
+  <img src="./assets/hero-leaf2.png" alt="Leaf Right" class="w-24 md:w-40 lg:w-52 object-contain" />
 </div>
 
-
-
-</body>
-
-
+<section class="flex flex-col lg:flex-row gap-6 px-6 py-8">
+  <div class="w-full lg:w-1/4 mb-6 lg:mb-0">
+    <h2 class="font-bold text-xl mb-2">Categories</h2>
+    <ul id="all-categories" class="space-y-2"></ul>
+  </div>
+  <div id="all-plants" class="w-full lg:w-2/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 lg:mb-0"></div>
+  <div class="w-full lg:w-1/4 border rounded-lg p-4 bg-white shadow-md">
+    <h2 class="font-bold text-xl mb-4">Cart</h2>
+    <ul id="cart-items" class="space-y-2"></ul>
+    <hr class="my-2"/>
+    <p class="font-semibold text-lg">Total: <span id="total-price">0</span>৳</p>
+  </div>
+</section>
 
 <script src="./script.js"></script>
-</script>
+</body>
 </html>
